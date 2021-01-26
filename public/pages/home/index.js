@@ -13,7 +13,7 @@ window.onload = () => {
     }
     const join = document.getElementById('join')
     const newMeeting = document.getElementById('new-meeting')
-    
+
     redirectWithRoomId(join)
     redirectWithRoomId(newMeeting)
 }

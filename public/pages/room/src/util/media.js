@@ -3,6 +3,6 @@ class Media {
         return navigator.mediaDevices.getUserMedia({
             video,
             audio
-        });
+        })
     }
 }

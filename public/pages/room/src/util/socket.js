@@ -1,20 +1,17 @@
 class SocketBuilder {
     constructor({ socketUrl }) {
-        this.socketUrl = socketUrl;
-        this.OnUserConnected = () => {};
-        this.OnUserDisconnected = () => {};
+        this.socketUrl = socketUrl
+        this.onUserConnected = () => {}
+        this.onUserDisconnected = () => {}
     }
-
     setOnUserConnected(fn) {
-        this.OnUserConnected = fn;
+        this.onUserConnected = fn
 
-        return this;
+        return this
     }
-
     setOnUserDisconnected(fn) {
-        this.OnUserDisconnected = fn;
-
-        return this;
+        this.onUserDisconnected = fn
+        return this
     }
 
     build() {
