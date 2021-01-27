@@ -18,7 +18,7 @@ $ cd public
 $ npm install
 
 # Execute a aplicação em modo de desenvolvimento o servidor da parte front
-$ cd npm start
+$ npm start
 # Vá para a pasta server
 $ cd server
 
@@ -41,7 +41,8 @@ $ npm install
 
 # Execute a aplicação em modo de desenvolvimento o servidor do peer
 $ npm start
-# O servidor inciará na porta:8080 - acesse <http://127.0.0.1:8080> 
+
+### O servidor inciará na porta:8080 - acesse <http://127.0.0.1:8080> 
 
 ### 🛠 Tecnologias
 
