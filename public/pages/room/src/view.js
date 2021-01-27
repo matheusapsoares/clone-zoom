@@ -4,6 +4,7 @@ class View {
     }
 
     createVideoElement({ muted = true, src, srcObject }) {
+        /* Cria o elemento do video com os dados do stream  */
         const video = document.createElement('video')
         video.muted = muted
         video.src = src
@@ -22,21 +23,37 @@ class View {
         return video
     }
 
-    renderVideo({ userId, stream = null, url = null, isCurrentId = false }) {
-        const video = this.createVideoElement({ src: url, srcObject: stream })
+    renderVideo({ userId, stream = null, url = null, isCurrentId = false, muted = true }) {
+        const video = this.createVideoElement({
+            muted,
+            src: url,
+            srcObject: stream
+        })
         this.appendToHTMLTree(userId, video, isCurrentId)
     }
 
     appendToHTMLTree(userId, video, isCurrentId) {
+        /* Adiciona o video na tela */
         const div = document.createElement('div')
         div.id = userId
         div.classList.add('wrapper')
         div.append(video)
+
+        /* Adicona o id da pessoa no html */
         const div2 = document.createElement('div')
         div2.innerText = isCurrentId ? '' : userId
         div.append(div2)
 
         const videoGrid = document.getElementById('video-grid')
         videoGrid.append(div)
+    }
+
+    setParticipants(count) {
+        /* Recebe o valor de usuarios conectados e adiciona eu mesmo */
+        const total = count + 1;
+        const participants = document.getElementById('participants')
+
+        /* substitui o valor na view */
+        participants.innerHTML = (total);
     }
 }
