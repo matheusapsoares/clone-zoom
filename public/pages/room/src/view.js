@@ -77,11 +77,12 @@ class View {
         }
     }
 
-    OnLeaveClick(command) {
+    OnLeaveClick() {
         return async() => {
-            command()
-            await Util.sleep(3000);
-            window.location = '/pages/home';
+            if (confirm("Você realmente quer realmente sair?")) {
+                await Util.sleep(3000);
+                window.location = '/pages/home';
+            }
         }
     }
 
@@ -90,6 +91,6 @@ class View {
     }
 
     configureLeaveButton(command) {
-        this.leaveBtn.addEventListener('click', this.OnLeaveClick(command))
+        this.leaveBtn.addEventListener('click', this.OnLeaveClick())
     }
 }

@@ -29,15 +29,36 @@ window.onload = () => {
     msgWithout(schedule)
     msgWithout(screen_share);
 
-    /* Seta a data atual */
     setDateNow();
 
 }
 
+atualizarDate = () => {
+    /* Seta a data atual */
+    setTimeout(function() {
+        setDateNow()
+    }, 10000);
+}
+
+
 setDateNow = () => {
     /* adiciona o date */
     const now = new Date;
-    const time = `${now.getHours()}:${now.getMinutes()}`;
+    console.log(now);
+
+    if (now.getHours() < 10) {
+        var hours = `0${now.getHours()}`;
+    } else {
+        var hours = `${now.getHours()}`;
+    }
+
+    if (now.getMinutes() < 10) {
+        var minutes = `0${now.getMinutes()}`;
+    } else {
+        var minutes = `${now.getMinutes()}`;
+    }
+
+    const time = `${hours}:${minutes}`;
 
     const clock = document.getElementById('clock')
 
@@ -51,4 +72,5 @@ setDateNow = () => {
 
     const dateId = document.getElementById('date')
     dateId.innerHTML = (date);
+    atualizarDate();
 }
