@@ -21,17 +21,21 @@ class Business {
     }
 
     async _init() {
-        const audio = false;
+        const audio = true;
+        const video = true;
 
         /* Configura o botao de gravar */
         this.view.configureRecordButton(this.onRecordPressed.bind(this));
 
-        this.currentStream = await this.media.getCamera(audio)
+        this.view.configureLeaveButton(this.onLeavePressed.bind(this))
+
+        this.currentStream = await this.media.getCamera(audio, video)
 
         this.socket = this.socketBuilder
             .setOnUserConnected(this.onUserConnected())
             .setOnUserDisconnected(this.onUserDisconnected())
-            .build()
+
+        .build()
 
         this.currentPeer = await this.peerBuilder
             .setOnError(this.onPeerError())
@@ -51,10 +55,9 @@ class Business {
             recorderInstance.startRecording();
         }
 
-        const isCurrentId = false
+        const isCurrentId = userId === this.currentPeer.id;
         this.view.renderVideo({
             userId,
-            muted: false,
             stream,
             isCurrentId
         })
@@ -81,6 +84,9 @@ class Business {
 
             /* Ajusta a quantidade de usuarios */
             this.view.setParticipants(this.peers.size);
+
+            /* para a gravacao do user */
+            this.stopRecording(userId);
 
             /* remove o elemento da tela */
             this.view.removeVideoElement(userId);
@@ -115,6 +121,11 @@ class Business {
         return (call, stream) => {
             /* Depois que inicia a chamada adiciona o video e adiciona o contador */
             const callerId = call.peer;
+            if (this.peers.has(callerId)) {
+                console.log('two calls and remove', callerId);
+                return;
+            }
+
             this.addVideoStream(callerId, stream);
             this.peers.set(callerId, { call });
             this.view.setParticipants(this.peers.size);
@@ -161,7 +172,24 @@ class Business {
             const isRecordingActive = rec.recordingActive;
             if (!isRecordingActive) continue;
 
-            await rec.stopRecording()
+            await rec.stopRecording();
+
+            this.playRecordings(key);
         }
+    }
+
+    playRecordings(userId) {
+        const user = this.usersRecordings.get(userId);
+
+        /* Resgata todos as gravaçoes do user */
+        const videosURLs = user.getAllVideoURLs();
+        videosURLs.map(url => {
+            this.view.renderVideo({ url, userId });
+        })
+
+    }
+
+    onLeavePressed() {
+        this.usersRecordings.forEach((value, key) => value.download());
     }
 }

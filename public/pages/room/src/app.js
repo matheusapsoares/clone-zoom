@@ -3,15 +3,15 @@ const onload = () => {
     const room = urlParams.get('room');
     console.log('this is the room', room)
 
-    const socketUrl = 'http://localhost:3000'
+    const socketUrl = 'https://fast-fortress-08052.herokuapp.com'
     const socketBuilder = new SocketBuilder({ socketUrl })
 
     /* recebe os valores para a conf do peer */
     const peerConfig = Object.values({
         id: undefined,
         config: {
-            port: 9000,
-            host: 'localhost',
+            host: 'pacific-castle-89918.herokuapp.com',
+            secure: true,
             path: '/'
         }
     })

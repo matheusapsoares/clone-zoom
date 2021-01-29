@@ -1,5 +1,5 @@
 class Media {
-    async getCamera(audio = false, video = true) {
+    async getCamera(audio, video) {
         return navigator.mediaDevices.getUserMedia({
             video,
             audio
