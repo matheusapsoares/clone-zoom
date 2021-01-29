@@ -44,7 +44,6 @@ atualizarDate = () => {
 setDateNow = () => {
     /* adiciona o date */
     const now = new Date;
-    console.log(now);
 
     if (now.getHours() < 10) {
         var hours = `0${now.getHours()}`;
