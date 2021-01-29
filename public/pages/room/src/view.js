@@ -27,35 +27,12 @@ class View {
 
     renderVideo({ userId, stream = null, url = null, isCurrentId = false }) {
 
-        this.getName(userId);
-
         const video = this.createVideoElement({
             muted: isCurrentId,
             src: url,
             srcObject: stream
         })
         this.appendToHTMLTree(userId, video, isCurrentId)
-    }
-
-    getName(userId) {
-        if (userId.indexOf("when") == -1) {
-            const nameStorage = localStorage.getItem(userId);
-            if (!nameStorage) {
-                const name = prompt('Digite seu nome');
-
-                if (name) {
-                    this.name = name;
-                } else {
-                    this.name = userId;
-                }
-                localStorage.setItem(userId, this.name);
-            } else {
-                this.name = nameStorage;
-            }
-        } else {
-            this.name = userId;
-        }
-
     }
 
     appendToHTMLTree(userId, video, isCurrentId) {
@@ -67,7 +44,7 @@ class View {
 
         /* Adicona o id da pessoa no html */
         const div2 = document.createElement('div')
-        div2.innerText = this.name
+        div2.innerText = userId;
         div.append(div2)
 
         const videoGrid = document.getElementById('video-grid')
